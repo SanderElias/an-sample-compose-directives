@@ -1,0 +1,59 @@
+:host {
+  --backHover: #404040;
+  position: relative;
+  display: block;
+  background-color: var(--backHover);
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  transition: background-color 0.25s ease;
+}
+
+:host:hover {
+  /**  lazy, this is elevation 4dp*/
+  background-color: #515151;
+}
+
+/** 
+  Add the close cross, and make
+*/
+:host.closeable::after {
+  content: "×";
+  font-size: 1.4rem;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  display: block;
+  cursor: pointer;
+  padding: 7px 13px 3px 5px;
+  /* background-color: green; */
+}
+
+/** 
+  Add the zoomanble icons
+*/
+:host.zoomable:hover::before {
+  font-size: 1rem;
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  display: block;
+  cursor: pointer;
+  padding: 7px 10px 3px 5px;
+  /* background-color: red; */
+}
+
+:host.zoomable:not(.zoomed):hover::before {
+  content: "🔎"; /** open "icon" */
+}
+:host.zoomable.zoomed:hover::before {
+  content: "←";  /** close "icon" */
+}
+/**
+   the styling for the zoomed in state. 
+*/
+:host.zoomed {
+  width:300px;
+  height: 300px;
+  background-color: var(--backHover);
+}

@@ -1,0 +1,25 @@
+<header>
+  <h1> {{ name }}</h1>
+</header>
+<main>
+  <app-card 
+    *ngFor="let c of cards" 
+    (click)="activate(c.id)" 
+    [elevate]="c.active ? 9 : 0" 
+    [closeable]='!c.active'
+    (closeable)="addNew(c.id)"
+    zoomable
+  >
+    <h3>{{c.id}}</h3>
+    <input 
+      *ngIf="c.active" 
+      [value]="c.description||''" 
+      (input)="c.description=$event.target['value']"
+      (click)='$event.stopImmediatePropagation()'
+    >
+    <p *ngIf="!c.active">{{c.description}}</p>
+  </app-card>
+</main>
+<footer>
+  <h4>Beauty is in the eye of the beholder</h4>
+</footer>

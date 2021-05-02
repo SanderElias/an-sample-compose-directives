@@ -1,0 +1,31 @@
+:host {
+  display: grid;
+  min-height: 99vh;
+  grid-template-rows: 80px 1fr 25px;
+}
+
+header {
+  align-self: center;
+  justify-self: center;  
+}
+
+h1 {
+  border-bottom: 1px solid rgb(180, 18, 59)
+}
+main {
+  padding:15px;
+  display:grid;
+  grid-template-columns: repeat(auto-fit, 150px);
+  grid-template-rows: repeat(auto-fill, 150px);
+  gap: 15px;
+}
+
+input {
+  width: 100%;
+}
+
+footer {
+  align-self: center;
+  justify-self: right;
+  padding-right: 15px;
+}
