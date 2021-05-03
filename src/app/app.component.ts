@@ -41,6 +41,30 @@ export class AppComponent {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 let lastId = -1;
 const sampleDesc = [
   'click me to activate',
