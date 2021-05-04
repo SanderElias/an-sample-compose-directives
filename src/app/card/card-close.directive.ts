@@ -8,7 +8,7 @@ import { filter, tap } from "rxjs/operators";
 export class CardCLoseDirective implements OnDestroy {
   #canBeClosed = true;
   elm = this.elmRef.nativeElement as HTMLElement;
-  @Input("closeable") set canBeClosed(x:boolean) {
+  @Input("closeable") set iCanBeClosed(x:boolean) {
     if (x !==false) {
       this.#canBeClosed=true
       this.elm.classList.add('closeable')
@@ -42,6 +42,8 @@ export class CardCLoseDirective implements OnDestroy {
     .subscribe();
 
   constructor(private elmRef: ElementRef) {}
+
+  canBeClosed() {return this.#canBeClosed}
 
   private close() {
     this.elm.style.display = "none";

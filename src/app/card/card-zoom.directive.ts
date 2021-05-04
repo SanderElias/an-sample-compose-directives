@@ -4,10 +4,12 @@ import {
   EventEmitter,
   Input,
   OnDestroy,
+Optional,
   Output
 } from "@angular/core";
 import { fromEvent } from "rxjs";
 import { filter, tap } from "rxjs/operators";
+import { CardCLoseDirective } from "./card-close.directive";
 
 @Directive({
   selector: "app-card[zoomable]"
@@ -32,7 +34,7 @@ export class CardZoomDirective implements OnDestroy {
   /**
    * Handle the click on the 'zoom' button
    */
-  clickSub = fromEvent<MouseEvent>(this.#elm, "click")
+  #clickSub = fromEvent<MouseEvent>(this.#elm, "click")
     .pipe(
       filter(() => this.#canBeZoomed),
       /** is the click on the target area? */
@@ -51,7 +53,13 @@ export class CardZoomDirective implements OnDestroy {
     )
     .subscribe();
 
-  constructor(private elmRef: ElementRef) {}
+  #canBeClosedSub = this.ccd && this.ccd.canBeClosed() ? 
+    /** when the panel is closed, it should be unZoomed too */
+    this.ccd.closeable.subscribe(() => this.unzoom()) : 
+    undefined;
+
+  constructor(private elmRef: ElementRef, @Optional() private ccd:CardCLoseDirective) {
+  }
 
   private zoom() {
     /** create element to be the backdrop */
@@ -84,6 +92,7 @@ export class CardZoomDirective implements OnDestroy {
   }
 
   ngOnDestroy() {
-    this.clickSub.unsubscribe();
+    this.#clickSub.unsubscribe();
+    this.#canBeClosedSub && this.#canBeClosedSub.unsubscribe()
   }
 }
